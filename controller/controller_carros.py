@@ -20,17 +20,18 @@ class Controller_Carro:
             return None
 
         # Solicita os demais dados do carro
+        modelo = input("Modelo do carro: ")
         categoria = input("Categoria do carro: ")
         valor_diaria = float(input("Valor da diária de locação: "))
         
         # Insere e persiste o novo carro
-        oracle.write(f"insert into carros (placa, categoria, valor_diaria) values ('{placa}', '{categoria}', {valor_diaria})")
+        oracle.write(f"insert into carros (modelo, placa, categoria, valor_diaria) values ('{modelo}','{placa}', '{categoria}', {valor_diaria})")
         
         # Recupera os dados do novo carro criado
-        df_carro = oracle.sqlToDataFrame(f"select id_carro, placa, categoria, valor_diaria from carros where placa = '{placa}'")
+        df_carro = oracle.sqlToDataFrame(f"select id_carro, modelo, placa, categoria, valor_diaria from carros where placa = '{placa}'")
         
         # Cria um novo objeto Carro
-        novo_carro = Carro(df_carro.id_carro.values[0], df_carro.placa.values[0], df_carro.categoria.values[0], df_carro.valor_diaria.values[0])
+        novo_carro = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0], df_carro.placa.values[0], df_carro.categoria.values[0], df_carro.valor_diaria.values[0])
         
         # Exibe os atributos do novo carro
         print(novo_carro.to_string())
@@ -60,10 +61,10 @@ class Controller_Carro:
         oracle.write(f"update carros set categoria = '{nova_categoria}', valor_diaria = {novo_valor_diaria} where id_carro = {id_carro}")
         
         # Recupera os dados atualizados do carro
-        df_carro = oracle.sqlToDataFrame(f"select id_carro, placa, categoria, valor_diaria from carros where id_carro = {id_carro}")
+        df_carro = oracle.sqlToDataFrame(f"select id_carro, modelo, placa, categoria, valor_diaria from carros where id_carro = {id_carro}")
         
         # Cria um objeto Carro com os dados atualizados
-        carro_atualizado = Carro(df_carro.id_carro.values[0], df_carro.placa.values[0], df_carro.categoria.values[0], df_carro.valor_diaria.values[0])
+        carro_atualizado = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0], df_carro.placa.values[0], df_carro.categoria.values[0], df_carro.valor_diaria.values[0])
         
         # Exibe os atributos do carro atualizado
         print(carro_atualizado.to_string())
@@ -86,13 +87,13 @@ class Controller_Carro:
             return
 
         # Recupera os dados do carro antes de excluir
-        df_carro = oracle.sqlToDataFrame(f"select id_carro, placa, categoria, valor_diaria from carros where id_carro = {id_carro}")
+        df_carro = oracle.sqlToDataFrame(f"select id_carro, modelo, placa, categoria, valor_diaria from carros where id_carro = {id_carro}")
         
         # Exclui o carro
         oracle.write(f"delete from carros where id_carro = {id_carro}")
         
         # Cria um objeto Carro com os dados do carro excluído para exibição
-        carro_excluido = Carro(df_carro.id_carro.values[0], df_carro.placa.values[0], df_carro.categoria.values[0], df_carro.valor_diaria.values[0])
+        carro_excluido = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0], df_carro.placa.values[0], df_carro.categoria.values[0], df_carro.valor_diaria.values[0])
         
         # Exibe a confirmação da exclusão
         print("Carro Removido com Sucesso!")

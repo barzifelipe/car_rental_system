@@ -1,0 +1,6 @@
+SELECT
+cli.CPF,
+cli.NOME_CLIENTE,
+cli.CNH
+FROM CLIENTES cli
+ORDER BY cli.NOME
