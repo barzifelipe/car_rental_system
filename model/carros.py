@@ -35,4 +35,4 @@ class Carro:
         return self.valor_diaria
     
     def to_string(self):
-        return f"ID Carro: {self.get_id_carro()} | Placa: {self.get_placa()} | Categoria: {self.get_cetegoria()} | Valor da diária: {self.get_valor_diaria()}"
+        return f"ID Carro: {self.get_id_carro()} | Placa: {self.get_placa()} | Categoria: {self.get_categoria()} | Valor da diária: {self.get_valor_diaria()}"
