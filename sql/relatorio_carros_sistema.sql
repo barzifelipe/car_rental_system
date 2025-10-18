@@ -1,5 +1,6 @@
 SELECT
 car.ID_CARRO,
+car.MODELO,
 car.PLACA,
 car.CATEGORIA,
 car.VALOR_DIARIA
