@@ -18,14 +18,13 @@ ctrl_locacao = Controller_Locacao()
 
 def reports(opcao_relatorio: int = 0):
     if opcao_relatorio == 1:
-        relatorio.get_relatorio_locacao()
+        relatorio.get_relatorio_clientes() 
     elif opcao_relatorio == 2:
-        relatorio.get_relatorio_clientes()
+        relatorio.get_relatorio_carros_sistema() 
     elif opcao_relatorio == 3:
-        relatorio.get_relatorio_carros_sistema()
+        relatorio.get_relatorio_funcionarios() 
     elif opcao_relatorio == 4:
-        relatorio.get_relatorio_funcionarios()
-
+        relatorio.get_relatorio_locacao() 
 
 def inserir(opcao_inserir: int = 0):
     if opcao_inserir == 1:
@@ -79,7 +78,7 @@ def run():
 
         if opcao == 1:
             print(config.MENU_RELATORIOS)
-            opcao_relatorio = int(input("Escolha uma opção [0-4]: "))
+            opcao_relatorio = int(input("Escolha uma opção [1-5]: "))
             config.clear_console(1)
             if opcao_relatorio != 0:
                 reports(opcao_relatorio)
@@ -87,7 +86,7 @@ def run():
 
         elif opcao == 2:
             print(config.MENU_ENTIDADES)
-            opcao_inserir = int(input("Escolha uma opção [1-4]: "))
+            opcao_inserir = int(input("Escolha uma opção [1-5]: "))
             config.clear_console(1)
             inserir(opcao_inserir)
             config.clear_console()
