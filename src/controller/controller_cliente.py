@@ -7,30 +7,26 @@ class Controller_Cliente:
 
     def inserir_cliente(self) -> Cliente:
 
-        # Cria uma nova conexão com o banco que permite alteração
         oracle = OracleQueries(can_write=True)
         oracle.connect()
 
-        # Solicita ao usuário o seu CPF
-        cpf = input("Informe o seu CPF: ")
+        cpf = input("Informe o CPF do cliente: ")
 
-        # Verifica se o cliente já está cadastrado no sistema
         if self.verifica_existencia_cliente(oracle, cpf):
-            print(f"A placa {cpf} já está cadastrada no sistema.")
+            print(f"O CPF {cpf} já está cadastrado no sistema.")
             return None
 
-        # Solicita os dados restantes do cliente
-        nome_cliente = input("Informe o seu nome completo: ")
-        cnh = float(input("Informe o número da sua CNH: "))
+        nome = input("Informe o nome completo do cliente: ")
+        cnh = float(input("Informe o número da CNH do cliente: "))
         
         # Insere e persiste o novo cliente no sistema
-        oracle.write(f"insert into clientes (cpf, nome_cliente, cnh) values ('{cpf}', '{nome_cliente}', {cnh})")
+        oracle.write(f"insert into clientes (cpf, nome, cnh) values ('{cpf}', '{nome}', {cnh})")
         
         # Recupera os dados do novo cliente criado
-        df_cliente = oracle.sqlToDataFrame(f"select cpf, nome_cliente, cnh from clientes where cpf = '{cpf}'")
+        df_cliente = oracle.sqlToDataFrame(f"select cpf, nome, cnh from clientes where cpf = '{cpf}'")
         
         # Cria um novo objeto Cliente
-        novo_cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome_cliente.values[0], df_cliente.cnh.values[0])
+        novo_cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0], df_cliente.cnh.values[0])
         
         # Exibe os atributos do novo Cliente
         print(novo_cliente.to_string())
@@ -40,29 +36,27 @@ class Controller_Cliente:
 
     def atualizar_cliente(self) -> Cliente:
 
-        # Cria uma nova conexão com o banco que permite alteração
+       
         oracle = OracleQueries(can_write=True)
         oracle.connect()
+      
+        cpf = (input("Infrome o CPF do cliente que deseja alterar: "))
 
-        # Solicita ao usuário o CPF do cliente a ser alterado
-        cpf = (input("CPF do cliente que deseja alterar: "))
-
-        # Verifica se o carro existe
         if not self.verifica_existencia_cliente(oracle, cpf=cpf):
-            print(f"O carro com CPF {cpf} não foi encontrado.")
+            print(f"O cliente com o CPF {cpf} não foi encontrado.")
             return None
 
-        # Solicita os novos dados do cliente
-        novo_nome = input("Novo Nome: ")
+     
+        novo_nome = input("Novo nome: ")
         
         # Atualiza os dados do cliente
-        oracle.write(f"update clientes set nome_cliente = '{novo_nome}' where cpf = '{cpf}'")
+        oracle.write(f"update clientes set nome = '{novo_nome}' where cpf = '{cpf}'")
         
         # Recupera os dados atualizados do cliente
-        df_cliente = oracle.sqlToDataFrame(f"select cpf, nome_cliente, cnh from clientes where cpf = '{cpf}'")
+        df_cliente = oracle.sqlToDataFrame(f"select cpf, nome, cnh from clientes where cpf = '{cpf}'")
         
         # Cria um objeto cliente com os dados atualizados
-        cliente_atualizado = Cliente(df_cliente.cpf.values[0], df_cliente.nome_cliente.values[0], df_cliente.cnh.values[0])
+        cliente_atualizado = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0], df_cliente.cnh.values[0])
         
         # Exibe os atributos do cliente atualizado
         print(cliente_atualizado.to_string())
@@ -77,7 +71,7 @@ class Controller_Cliente:
         oracle.connect()
 
         # Solicita ao usuário o CPF do cliente a ser excluído
-        cpf = int(input("CPF do cliente que será excluído: "))
+        cpf = int(input("Informe o CPF do cliente a ser excluído: "))
 
         # Verifica se o CPF existe
         if not self.verifica_existencia_cliente(oracle, cpf=cpf):
@@ -85,13 +79,13 @@ class Controller_Cliente:
             return
 
         # Recupera os dados do cliente antes de excluir
-        df_cliente = oracle.sqlToDataFrame(f"select cpf, nome_cliente, cnh from clientes where cpf = '{cpf}'")
+        df_cliente = oracle.sqlToDataFrame(f"select cpf, nome, cnh from clientes where cpf = '{cpf}'")
         
         # Exclui o cliente
         oracle.write(f"delete from clientes where cpf = {cpf}")
         
         # Cria um objeto Cliente com os dados do cliente excluído para exibição
-        cliente_excluido = Cliente(df_cliente.cpf.values[0], df_cliente.nome_cliente.values[0], df_cliente.cnh.values[0])
+        cliente_excluido = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0], df_cliente.cnh.values[0])
         
         # Exibe a confirmação da exclusão
         print("Cliente Removido com Sucesso!")

@@ -1,30 +1,30 @@
 class Cliente:
     def __init__(self,
-                CPF:str=None,
+                cpf:str=None,
                 nome:str=None,
-                CNH:str=None
+                cnh:str=None
                 ):
-        self.set_CPF(CPF)
+        self.set_cpf(cpf)
         self.set_nome(nome)
-        self.set_CNH(CNH)
+        self.set_cnh(cnh)
     
-    def set_CPF(self, CPF:str):
-        self.CPF = CPF
+    def set_CPF(self, cpf:str):
+        self.cpf = cpf
     
     def set_nome(self, nome:str):
         self.nome = nome
 
-    def set_CNH(self, CNH:str):
-        self.CNH = CNH
+    def set_CNH(self, cnh:str):
+        self.cnh = cnh
 
-    def get_CPF(self) -> str:
-        return self.CPF
+    def get_cpf(self) -> str:
+        return self.cpf
     
     def get_nome(self) -> str:
         return self.nome
 
-    def get_CNH(self) -> str:
-        return self.CNH
+    def get_cnh(self) -> str:
+        return self.cnh
     
     def to_string(self) -> str:
-        return f"CPF: {self.get_CPF()} | Nome: {self.get_nome()} | CNH: {self.get_CNH()}"
+        return f"CPF: {self.get_cpf()} | Nome: {self.get_nome()} | CNH: {self.get_cnh()}"

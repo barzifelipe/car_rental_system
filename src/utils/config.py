@@ -77,7 +77,7 @@ MENU_RELATORIOS = """
 2 - Relatório de Carros
 3 - Relatório de Funcionários
 4 - Relatório de Locações
-0 - Voltar
+5 - Voltar
 ===============================================
 """
 
@@ -87,6 +87,6 @@ MENU_ENTIDADES = """
 2 - Carros
 3 - Funcionários
 4 - Locações
-0 - Voltar
+5 - Voltar
 ==============================================
 """
