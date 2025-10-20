@@ -19,19 +19,19 @@ class Controller_Locacao:
             data_inicio = input("Data de Início (dd/mm/aaaa): ")
             data_fim = input("Data de Fim (dd/mm/aaaa): ")
             cpf = input("CPF do Cliente: ")
-            id_veiculo = int(input("ID do Veículo: "))
+            id_carro = int(input("ID do Veículo: "))
             id_funcionario = int(input("ID do Funcionário: "))
 
             # Verifica existência das entidades relacionadas
             df_cliente = oracle.sqlToDataFrame(f"SELECT cpf, nome FROM clientes WHERE cpf = '{cpf}'")
-            df_carro = oracle.sqlToDataFrame(f"SELECT id_veiculo, modelo FROM carros WHERE id_veiculo = {id_veiculo}")
+            df_carro = oracle.sqlToDataFrame(f"SELECT id_carro, modelo FROM carros WHERE id_carro = {id_carro}")
             df_func = oracle.sqlToDataFrame(f"SELECT id_funcionario, nome FROM funcionarios WHERE id_funcionario = {id_funcionario}")
 
             if df_cliente.empty:
                 print(f"\nCliente com CPF {cpf} não encontrado.")
                 return None
             if df_carro.empty:
-                print(f"\nVeículo com ID {id_veiculo} não encontrado.")
+                print(f"\nVeículo com ID {id_carro} não encontrado.")
                 return None
             if df_func.empty:
                 print(f"\nFuncionário com ID {id_funcionario} não encontrado.")
@@ -39,19 +39,19 @@ class Controller_Locacao:
 
             # Inserção no banco
             oracle.write(
-                f"INSERT INTO locacoes (numero_reserva, data_inicio, data_fim, cpf, id_veiculo, id_funcionario) "
+                f"INSERT INTO locacoes (numero_reserva, data_inicio, data_fim, cpf, id_carro, id_funcionario) "
                 f"VALUES ({numero_reserva}, TO_DATE('{data_inicio}', 'DD/MM/YYYY'), TO_DATE('{data_fim}', 'DD/MM/YYYY'), "
-                f"'{cpf}', {id_veiculo}, {id_funcionario})"
+                f"'{cpf}', {id_carro}, {id_funcionario})"
             )
 
             # Recupera dados da nova locação
             df_loc = oracle.sqlToDataFrame(
-                f"SELECT numero_reserva, data_inicio, data_fim, cpf, id_veiculo, id_funcionario "
+                f"SELECT numero_reserva, data_inicio, data_fim, cpf, id_carro, id_funcionario "
                 f"FROM locacoes WHERE numero_reserva = {numero_reserva}"
             )
 
             cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0])
-            carro = Carro(df_carro.id_veiculo.values[0], df_carro.modelo.values[0])
+            carro = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0])
             funcionario = Funcionario(df_func.id_funcionario.values[0], df_func.nome.values[0])
 
             nova_locacao = Locacao(
@@ -85,16 +85,16 @@ class Controller_Locacao:
             )
 
             df_loc = oracle.sqlToDataFrame(
-                f"SELECT numero_reserva, data_inicio, data_fim, cpf, id_veiculo, id_funcionario "
+                f"SELECT numero_reserva, data_inicio, data_fim, cpf, id_carro, id_funcionario "
                 f"FROM locacoes WHERE numero_reserva = {numero_reserva}"
             )
 
             df_cliente = oracle.sqlToDataFrame(f"SELECT cpf, nome FROM clientes WHERE cpf = '{df_loc.cpf.values[0]}'")
-            df_carro = oracle.sqlToDataFrame(f"SELECT id_veiculo, modelo FROM carros WHERE id_veiculo = {df_loc.id_veiculo.values[0]}")
+            df_carro = oracle.sqlToDataFrame(f"SELECT id_carro, modelo FROM carros WHERE id_carro = {df_loc.id_carro.values[0]}")
             df_func = oracle.sqlToDataFrame(f"SELECT id_funcionario, nome FROM funcionarios WHERE id_funcionario = {df_loc.id_funcionario.values[0]}")
 
             cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0])
-            carro = Carro(df_carro.id_veiculo.values[0], df_carro.modelo.values[0])
+            carro = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0])
             funcionario = Funcionario(df_func.id_funcionario.values[0], df_func.nome.values[0])
 
             loc_atualizada = Locacao(
@@ -121,14 +121,14 @@ class Controller_Locacao:
 
         if not self.verifica_existencia_locacao(oracle, numero_reserva):
             df_loc = oracle.sqlToDataFrame(
-                f"SELECT numero_reserva, cpf, id_veiculo, id_funcionario "
+                f"SELECT numero_reserva, cpf, id_carro, id_funcionario "
                 f"FROM locacoes WHERE numero_reserva = {numero_reserva}"
             )
 
             oracle.write(f"DELETE FROM locacoes WHERE numero_reserva = {numero_reserva}")
 
             print("\nLocação removida com sucesso!")
-            print(f"Reserva: {df_loc.numero_reserva.values[0]} | CPF: {df_loc.cpf.values[0]} | Veículo: {df_loc.id_veiculo.values[0]}")
+            print(f"Reserva: {df_loc.numero_reserva.values[0]} | CPF: {df_loc.cpf.values[0]} | Veículo: {df_loc.id_carro.values[0]}")
         else:
             print(f"A reserva {numero_reserva} não existe.")
 

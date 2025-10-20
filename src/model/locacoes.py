@@ -56,4 +56,4 @@ class Locacao:
         return self.funcionario
 
     def to_string(self) -> str:
-        return f"Reserva: {self.get_numero_reserva()} | Início: {self.get_data_inicio()} | Fim: {self.get_data_fim()} | CPF: {self.get_cliente().get_CPF()} | ID Carro: {self.get_carro().get_id_carro()} | ID Funcionario: {self.get_funcionario().get_id_funcionario()}"
+        return f"Reserva: {self.get_numero_reserva()} | Início: {self.get_data_inicio()} | Fim: {self.get_data_fim()} | CPF: {self.get_cliente().get_cpf()} | ID Carro: {self.get_carro().get_id_carro()} | ID Funcionario: {self.get_funcionario().get_id_funcionario()}"
