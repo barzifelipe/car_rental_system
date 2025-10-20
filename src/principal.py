@@ -49,7 +49,7 @@ def atualizar(opcao_atualizar: int = 0):
         relatorio.get_relatorio_funcionarios()
         ctrl_funcionario.atualizar_funcionario()
     elif opcao_atualizar == 4:
-        relatorio.get_relatorio_locacoes()
+        relatorio.get_relatorio_locacao()
         ctrl_locacao.atualizar_locacao()
 
 
@@ -64,7 +64,7 @@ def excluir(opcao_excluir: int = 0):
         relatorio.get_relatorio_funcionarios()
         ctrl_funcionario.excluir_funcionario()
     elif opcao_excluir == 4:
-        relatorio.get_relatorio_locacoes()
+        relatorio.get_relatorio_locacao()
         ctrl_locacao.excluir_locacao()
 
 

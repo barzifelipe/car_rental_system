@@ -71,18 +71,17 @@ class SplashScreenLocadora:
         total_locacoes = str(self.get_total('locacoes')).rjust(5)
 
         return f"""
-        ###############################################################
-        #             SISTEMA DE LOCAÇÃO DE VEÍCULOS                 
-        #                                                            
-        #  TOTAL DE REGISTROS:                                        
-        #      1 - CLIENTES:         {total_clientes}
-        #      2 - VEÍCULOS:         {total_carros}
-        #      3 - FUNCIONÁRIOS:     {total_funcionarios}
-        #      4 - LOCAÇÕES:         {total_locacoes}
-        #
-        #  CRIADO POR: {self.created_by}
-        #  PROFESSOR:  {self.professor}
-        #  DISCIPLINA: {self.disciplina}
-        #              {self.semestre}
-        ###############################################################
+        ================== SISTEMA DE LOCAÇÃO DE VEÍCULOS ================
+        ||                                                              ||
+        || TOTAL DE REGISTROS:                                          ||    
+        ||     1 - CLIENTES:         {total_clientes}                   ||
+        ||     2 - VEÍCULOS:         {total_carros}                     ||
+        ||     3 - FUNCIONÁRIOS:     {total_funcionarios}               ||
+        ||     4 - LOCAÇÕES:         {total_locacoes}                   ||
+        ||                                                              ||
+        ||   CRIADO POR: {self.created_by}                              ||
+        ||   PROFESSOR:  {self.professor}                               ||
+        ||   DISCIPLINA: {self.disciplina}                              ||
+        ||               {self.semestre}                                ||
+         =================================================================
         """
