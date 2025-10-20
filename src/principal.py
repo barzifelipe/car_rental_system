@@ -16,12 +16,9 @@ ctrl_funcionario = Controller_Funcionario()
 ctrl_locacao = Controller_Locacao()
 
 
-# ===============================
-# 📊 RELATÓRIOS
-# ===============================
 def reports(opcao_relatorio: int = 0):
     if opcao_relatorio == 1:
-        relatorio.get_relatorio_locacoes()
+        relatorio.get_relatorio_locacao()
     elif opcao_relatorio == 2:
         relatorio.get_relatorio_clientes()
     elif opcao_relatorio == 3:
@@ -30,9 +27,6 @@ def reports(opcao_relatorio: int = 0):
         relatorio.get_relatorio_funcionarios()
 
 
-# ===============================
-# ➕ INSERIR REGISTROS
-# ===============================
 def inserir(opcao_inserir: int = 0):
     if opcao_inserir == 1:
         ctrl_cliente.inserir_cliente()
@@ -44,9 +38,6 @@ def inserir(opcao_inserir: int = 0):
         ctrl_locacao.inserir_locacao()
 
 
-# ===============================
-# 🔁 ATUALIZAR REGISTROS
-# ===============================
 def atualizar(opcao_atualizar: int = 0):
     if opcao_atualizar == 1:
         relatorio.get_relatorio_clientes()
@@ -62,9 +53,6 @@ def atualizar(opcao_atualizar: int = 0):
         ctrl_locacao.atualizar_locacao()
 
 
-# ===============================
-# ❌ EXCLUIR REGISTROS
-# ===============================
 def excluir(opcao_excluir: int = 0):
     if opcao_excluir == 1:
         relatorio.get_relatorio_clientes()
@@ -80,9 +68,6 @@ def excluir(opcao_excluir: int = 0):
         ctrl_locacao.excluir_locacao()
 
 
-# ===============================
-# 🧠 LOOP PRINCIPAL DO SISTEMA
-# ===============================
 def run():
     print(tela_inicial.get_updated_screen())
     config.clear_console()
