@@ -18,24 +18,25 @@ class Relatorio:
         oracle = OracleQueries()
         oracle.connect()
         print(oracle.sqlToDataFrame(self.query_relatorio_carros_sistema))
-        input("Pressione Enter para sair deste relatório")
+        input("\nPressione Enter para prosseguir ou sair\n")
 
     def get_relatorio_clientes(self):
         oracle = OracleQueries()
         oracle.connect()
         print(oracle.sqlToDataFrame(self.query_relatorio_clientes))
-        input("Pressione Enter para sair deste relatório")
+        input("\nPressione Enter para prosseguir ou sair\n")
     
     def get_relatorio_funcionarios(self):
         oracle = OracleQueries()
         oracle.connect()
         print(oracle.sqlToDataFrame(self.query_relatorio_funcionarios))
-        input("Pressione Enter para sair deste relatório")
+        input("\nPressione Enter para prosseguir ou sair\n")
 
     def get_relatorio_locacao(self):
         oracle = OracleQueries()
         oracle.connect()
         print(oracle.sqlToDataFrame(self.query_relatorio_locacao))
-        input("Pressione Enter para sair deste relatório")
+        input("\nPressione Enter para prosseguir ou sair\n")
+
 
 

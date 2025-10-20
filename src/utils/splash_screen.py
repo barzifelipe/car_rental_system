@@ -35,7 +35,7 @@ class SplashScreenLocadora:
         ||                                                              ||
         || TOTAL DE REGISTROS:                                          ||    
         ||     1 - CLIENTES:         {total_clientes}                   ||
-        ||     2 - CARROS:         {total_carros}                     ||
+        ||     2 - CARROS:         {total_carros}                       ||
         ||     3 - FUNCIONÁRIOS:     {total_funcionarios}               ||
         ||     4 - LOCAÇÕES:         {total_locacoes}                   ||
         ||                                                              ||

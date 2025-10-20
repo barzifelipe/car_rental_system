@@ -18,16 +18,12 @@ class Controller_Cliente:
         nome = input("Informe o nome completo do cliente: ")
         cnh = float(input("Informe o número da CNH do cliente: "))
 
-        # Insere e persiste o novo cliente no sistema
         oracle.write(f"INSERT INTO clientes (cpf, nome, cnh) VALUES ('{cpf}', '{nome}', {cnh})")
 
-        # Recupera os dados do novo cliente criado
         df_cliente = oracle.sqlToDataFrame(f"SELECT cpf, nome, cnh FROM clientes WHERE cpf = '{cpf}'")
-
-        # Cria um novo objeto Cliente
+  
         novo_cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0], df_cliente.cnh.values[0])
 
-        # Exibe os atributos do novo Cliente
         print("\nCliente inserido com sucesso:")
         print(novo_cliente.to_string())
 
@@ -44,17 +40,12 @@ class Controller_Cliente:
             return None
 
         novo_nome = input("Novo nome: ")
-
-        # Atualiza os dados do cliente
         oracle.write(f"UPDATE clientes SET nome = '{novo_nome}' WHERE cpf = '{cpf}'")
 
-        # Recupera os dados atualizados do cliente
         df_cliente = oracle.sqlToDataFrame(f"SELECT cpf, nome, cnh FROM clientes WHERE cpf = '{cpf}'")
 
-        # Cria um objeto cliente com os dados atualizados
         cliente_atualizado = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0], df_cliente.cnh.values[0])
 
-        # Exibe os atributos do cliente atualizado
         print("\nCliente atualizado com sucesso:")
         print(cliente_atualizado.to_string())
 
