@@ -23,7 +23,7 @@ class Controller_Locacao:
             id_funcionario = int(input("ID do Funcionário: "))
 
             # Verifica existência das entidades relacionadas
-            df_cliente = oracle.sqlToDataFrame(f"SELECT cpf, nome_cliente FROM clientes WHERE cpf = '{cpf}'")
+            df_cliente = oracle.sqlToDataFrame(f"SELECT cpf, nome FROM clientes WHERE cpf = '{cpf}'")
             df_carro = oracle.sqlToDataFrame(f"SELECT id_veiculo, modelo FROM carros WHERE id_veiculo = {id_veiculo}")
             df_func = oracle.sqlToDataFrame(f"SELECT id_funcionario, nome FROM funcionarios WHERE id_funcionario = {id_funcionario}")
 
@@ -50,7 +50,7 @@ class Controller_Locacao:
                 f"FROM locacoes WHERE numero_reserva = {numero_reserva}"
             )
 
-            cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome_cliente.values[0])
+            cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0])
             carro = Carro(df_carro.id_veiculo.values[0], df_carro.modelo.values[0])
             funcionario = Funcionario(df_func.id_funcionario.values[0], df_func.nome.values[0])
 
@@ -89,11 +89,11 @@ class Controller_Locacao:
                 f"FROM locacoes WHERE numero_reserva = {numero_reserva}"
             )
 
-            df_cliente = oracle.sqlToDataFrame(f"SELECT cpf, nome_cliente FROM clientes WHERE cpf = '{df_loc.cpf.values[0]}'")
+            df_cliente = oracle.sqlToDataFrame(f"SELECT cpf, nome FROM clientes WHERE cpf = '{df_loc.cpf.values[0]}'")
             df_carro = oracle.sqlToDataFrame(f"SELECT id_veiculo, modelo FROM carros WHERE id_veiculo = {df_loc.id_veiculo.values[0]}")
             df_func = oracle.sqlToDataFrame(f"SELECT id_funcionario, nome FROM funcionarios WHERE id_funcionario = {df_loc.id_funcionario.values[0]}")
 
-            cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome_cliente.values[0])
+            cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0])
             carro = Carro(df_carro.id_veiculo.values[0], df_carro.modelo.values[0])
             funcionario = Funcionario(df_func.id_funcionario.values[0], df_func.nome.values[0])
 
