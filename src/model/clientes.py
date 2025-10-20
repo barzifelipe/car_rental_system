@@ -8,13 +8,13 @@ class Cliente:
         self.set_nome(nome)
         self.set_cnh(cnh)
     
-    def set_CPF(self, cpf:str):
+    def set_cpf(self, cpf:str):
         self.cpf = cpf
     
     def set_nome(self, nome:str):
         self.nome = nome
 
-    def set_CNH(self, cnh:str):
+    def set_cnh(self, cnh:str):
         self.cnh = cnh
 
     def get_cpf(self) -> str:
