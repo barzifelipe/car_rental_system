@@ -1,54 +1,73 @@
+import os
 from conexion.oracle_queries import OracleQueries
 
-def create_tables(query:str):
+def create_tables(query: str):
     list_of_commands = query.split(";")
-
     oracle = OracleQueries(can_write=True)
     oracle.connect()
+    try:
+        for command in list_of_commands:
+            command = command.strip()
+            if command:
+                print("Executing:", command)
+                try:
+                    oracle.executeDDL(command)
+                    print("Successfully executed")
+                except Exception as e:
+                    print("Error:", e)
+    finally:
+        oracle.close()
 
-    for command in list_of_commands:    
-        if len(command) > 0:
-            print(command)
-            try:
-                oracle.executeDDL(command)
-                print("Successfully executed")
-            except Exception as e:
-                print(e)            
 
-def generate_records(query:str, sep:str=';'):
+def generate_records(query: str, sep: str = ';'):
     list_of_commands = query.split(sep)
-
     oracle = OracleQueries(can_write=True)
     oracle.connect()
+    try:
+        for command in list_of_commands:
+            command = command.strip()
+            if command:
+                print("Executing:", command)
+                try:
+                    oracle.write(command)
+                    print("Successfully executed")
+                except Exception as e:
+                    print("Error:", e)
+    finally:
+        oracle.close()
 
-    for command in list_of_commands:    
-        if len(command) > 0:
-            print(command)
-            oracle.write(command)
-            print("Successfully executed")
 
 def run():
+    # Caminho base do script
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    SQL_DIR = os.path.join(BASE_DIR, "../sql")
 
-    with open("../sql/create_tables_locacoes.sql") as f:
+    # Arquivos SQL
+    create_tables_file = os.path.join(SQL_DIR, "create_tables_locacoes.sql")
+    generate_records_file = os.path.join(SQL_DIR, "inserting_samples_records.sql")
+    generate_related_file = os.path.join(SQL_DIR, "inserting_samples_related_records.sql")
+
+    # Criar tabelas
+    with open(create_tables_file, "r") as f:
         query_create = f.read()
-
     print("Creating tables...")
     create_tables(query=query_create)
-    print("Tables successfully created!")
+    print("Tables successfully created!\n")
 
-    with open("../sql/inserting_samples_records.sql") as f:  
+    # Inserir registros
+    with open(generate_records_file, "r") as f:
         query_generate_records = f.read()
-
-    print("Gerenating records")
+    print("Generating records...")
     generate_records(query=query_generate_records)
-    print("Records successfully generated!")
+    print("Records successfully generated!\n")
 
-    with open("../sql/inserting_samples_related_records.sql") as f:   
+    # Inserir registros relacionados
+    with open(generate_related_file, "r") as f:
         query_generate_related_records = f.read()
-
-    print("Gerenating records")
+    print("Generating related records...")
     generate_records(query=query_generate_related_records, sep='--')
-    print("Records successfully generated!")
+    print("Related records successfully generated!\n")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     run()

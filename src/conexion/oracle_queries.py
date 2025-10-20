@@ -1,69 +1,83 @@
 import json
-import cx_Oracle
+import os
+import oracledb
 from pandas import DataFrame
 
 class OracleQueries:
 
-    def __init__(self, can_write:bool=False):
+    def __init__(self, can_write: bool = False):
         self.can_write = can_write
         self.host = "localhost"
         self.port = 1521
         self.service_name = 'XEPDB1'
-        self.sid = 'XE'
 
-        with open("conexion/passphrase/authentication.oracle", "r") as f:
-            self.user, self.passwd = f.read().split(',')            
+        # Caminho seguro para o arquivo de autenticação, relativo a este script
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        auth_file = os.path.join(base_dir, "passphrase", "authentication.oracle")
+
+        if not os.path.exists(auth_file):
+            raise FileNotFoundError(f"Authentication file not found: {auth_file}")
+
+        with open(auth_file, "r") as f:
+            content = f.read().strip()
+            self.user, self.passwd = content.split(',')
+
+        self.conn = None
+        self.cur = None
 
     def __del__(self):
-        if self.cur:
+        if hasattr(self, "cur") and self.cur:
             self.close()
 
-    def connectionString(self, in_container:bool=False):
-        if not in_container:
-            string_connection = cx_Oracle.makedsn(host=self.host, port=self.port, sid=self.sid)
-        elif in_container:
-            string_connection = cx_Oracle.makedsn(host=self.host, port=self.port, service_name=self.service_name)
-        return string_connection
+    def connectionString(self) -> str:
+        """
+        String de conexão no modo Thin do oracledb.
+        """
+        return f"{self.host}:{self.port}/{self.service_name}"
 
     def connect(self):
-
-        self.conn = cx_Oracle.connect(user=self.user, password=self.passwd, dsn=self.connectionString())
+        """
+        Conecta ao banco Oracle usando oracledb Thin.
+        """
+        self.conn = oracledb.connect(
+            user=self.user,
+            password=self.passwd,
+            dsn=self.connectionString()
+        )
         self.cur = self.conn.cursor()
         return self.cur
 
-    def sqlToDataFrame(self, query:str) -> DataFrame:
-        
+    def sqlToDataFrame(self, query: str) -> DataFrame:
         self.cur.execute(query)
         rows = self.cur.fetchall()
         return DataFrame(rows, columns=[col[0].lower() for col in self.cur.description])
 
-    def sqlToMatrix(self, query:str) -> tuple:
-    
+    def sqlToMatrix(self, query: str) -> tuple:
         self.cur.execute(query)
         rows = self.cur.fetchall()
         matrix = [list(row) for row in rows]
         columns = [col[0].lower() for col in self.cur.description]
         return matrix, columns
 
-    def sqlToJson(self, query:str):
-        
+    def sqlToJson(self, query: str) -> str:
         self.cur.execute(query)
         columns = [col[0].lower() for col in self.cur.description]
-        self.cur.rowfactory = lambda *args: dict(zip(columns, args))
-        rows = self.cur.fetchall()
+        rows = [dict(zip(columns, row)) for row in self.cur.fetchall()]
         return json.dumps(rows, default=str)
 
-    def write(self, query:str):
+    def write(self, query: str):
         if not self.can_write:
-            raise Exception('Can\'t write using this connection')
-
+            raise Exception("Can't write using this connection")
         self.cur.execute(query)
         self.conn.commit()
 
-    def close(self):
-        if self.cur:
-            self.cur.close()
-
-    def executeDDL(self, query:str):
-        
+    def executeDDL(self, query: str):
         self.cur.execute(query)
+
+    def close(self):
+        if hasattr(self, "cur") and self.cur:
+            self.cur.close()
+            self.cur = None
+        if hasattr(self, "conn") and self.conn:
+            self.conn.close()
+            self.conn = None
