@@ -5,7 +5,7 @@ from controller.controller_carros import Controller_Carro
 from controller.controller_funcionarios import Controller_Funcionario
 from controller.controller_locacoes import Controller_Locacao
 from reports.relatorios import Relatorio
-
+import time
 
 # Instanciando classes principais do sistema
 tela_inicial = SplashScreenLocadora()
@@ -69,6 +69,7 @@ def excluir(opcao_excluir: int = 0):
 
 def run():
     print(tela_inicial.get_updated_screen())
+    time.sleep(5)
     config.clear_console()
 
     while True:
