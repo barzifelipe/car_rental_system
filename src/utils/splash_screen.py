@@ -4,14 +4,12 @@ from utils import config
 class SplashScreenLocadora:
     def __init__(self):
         self.created_by = (
-            "Emanoel Vitor Ventura Atanazio | "
-            "Felipe Rodrigues Barzilai\n "
-            "João Emanoel Justino | "
-            "Livia Favato Bastos Neves\n "
-            "Rogeres Jose Prates da Silva"
+           'Emanoel Vitor Ventura Atanazio | Felipe Rodrigues Barzilai'
+           '\n\t\t\tJoão Emanoel Justino | Livia Favato Bastos Neves'
+           '\n\t\t\tRogeres Jose Prates da Silva\n'
         )
         self.professor = "Howard Roatti"
-        self.disciplina = "Banco de Dados\n 2025/2"
+        self.disciplina = "Banco de Dados\t2025/2"
        
 
     def get_total(self, tabela: str):
@@ -39,7 +37,7 @@ class SplashScreenLocadora:
             3 - FUNCIONÁRIOS:    {total_funcionarios}               
             4 - LOCAÇÕES:        {total_locacoes}                   
                                                                      
-           CRIADO POR: {self.created_by}                              
+           CRIADO POR: {self.created_by}                         
            PROFESSOR:  {self.professor}                               
            DISCIPLINA: {self.disciplina}                              
                                                      

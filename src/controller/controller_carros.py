@@ -11,7 +11,7 @@ class Controller_Carro:
 
         placa = input("Informe a placa do novo Carro: ")
 
-        # Verifica se a placa já existe
+        # Se já existir, não insere
         if self.verifica_existencia_carro(oracle, placa=placa):
             print(f"A placa {placa} já está cadastrada no sistema.")
             return None
@@ -20,6 +20,7 @@ class Controller_Carro:
         categoria = input("Informe a categoria do Carro: ")
         valor_diaria = float(input("Informe o valor da diária de locação: "))
 
+        # Inserção no banco com commit
         oracle.write(f"""
             INSERT INTO carros (id_carro, modelo, placa, categoria, valor_diaria)
             VALUES (LABDATABASE.CARROS_ID_CARRO_SEQ.NEXTVAL, '{modelo}', '{placa}', '{categoria}', {valor_diaria})
@@ -49,39 +50,41 @@ class Controller_Carro:
 
         id_carro = int(input("Informe o ID do Carro que deseja alterar: "))
 
-        if self.verifica_existencia_carro(oracle, id_carro=id_carro):
-            novo_modelo = input("Informe o novo modelo: ")
-            nova_categoria = input("Informe a nova categoria: ")
-            novo_valor_diaria = float(input("Informe o novo valor da diária: "))
-
-            oracle.write(f"""
-                UPDATE carros 
-                SET modelo = '{novo_modelo}', 
-                    categoria = '{nova_categoria}', 
-                    valor_diaria = {novo_valor_diaria}
-                WHERE id_carro = {id_carro}
-            """)
-
-            df_carro = oracle.sqlToDataFrame(f"""
-                SELECT id_carro, modelo, placa, categoria, valor_diaria 
-                FROM carros 
-                WHERE id_carro = {id_carro}
-            """)
-
-            carro_atualizado = Carro(
-                df_carro.id_carro.values[0],
-                df_carro.modelo.values[0],
-                df_carro.placa.values[0],
-                df_carro.categoria.values[0],
-                df_carro.valor_diaria.values[0]
-            )
-
-            print("\nCarro atualizado com sucesso!")
-            print(carro_atualizado.to_string())
-            return carro_atualizado
-        else:
+        # Se não existir, não atualiza
+        if not self.verifica_existencia_carro(oracle, id_carro=id_carro):
             print(f"O Carro com ID {id_carro} não foi encontrado.")
             return None
+
+        novo_modelo = input("Informe o novo modelo: ")
+        nova_categoria = input("Informe a nova categoria: ")
+        novo_valor_diaria = float(input("Informe o novo valor da diária: "))
+
+        # Atualização no banco com commit
+        oracle.write(f"""
+            UPDATE carros 
+            SET modelo = '{novo_modelo}', 
+                categoria = '{nova_categoria}', 
+                valor_diaria = {novo_valor_diaria}
+            WHERE id_carro = {id_carro}
+        """)
+
+        df_carro = oracle.sqlToDataFrame(f"""
+            SELECT id_carro, modelo, placa, categoria, valor_diaria 
+            FROM carros 
+            WHERE id_carro = {id_carro}
+        """)
+
+        carro_atualizado = Carro(
+            df_carro.id_carro.values[0],
+            df_carro.modelo.values[0],
+            df_carro.placa.values[0],
+            df_carro.categoria.values[0],
+            df_carro.valor_diaria.values[0]
+        )
+
+        print("\nCarro atualizado com sucesso!")
+        print(carro_atualizado.to_string())
+        return carro_atualizado
 
     def excluir_carro(self):
         oracle = OracleQueries(can_write=True)
@@ -89,27 +92,30 @@ class Controller_Carro:
 
         id_carro = int(input("Informe o ID do Carro a ser excluído: "))
 
-        if self.verifica_existencia_carro(oracle, id_carro=id_carro):
-            df_carro = oracle.sqlToDataFrame(f"""
-                SELECT id_carro, modelo, placa, categoria, valor_diaria 
-                FROM carros 
-                WHERE id_carro = {id_carro}
-            """)
-
-            oracle.write(f"DELETE FROM carros WHERE id_carro = {id_carro}")
-
-            carro_excluido = Carro(
-                df_carro.id_carro.values[0],
-                df_carro.modelo.values[0],
-                df_carro.placa.values[0],
-                df_carro.categoria.values[0],
-                df_carro.valor_diaria.values[0]
-            )
-
-            print("\nCarro removido com sucesso!")
-            print(carro_excluido.to_string())
-        else:
+        # Se não existir, não exclui
+        if not self.verifica_existencia_carro(oracle, id_carro=id_carro):
             print(f"O Carro com ID {id_carro} não foi encontrado.")
+            return None
+
+        df_carro = oracle.sqlToDataFrame(f"""
+            SELECT id_carro, modelo, placa, categoria, valor_diaria 
+            FROM carros 
+            WHERE id_carro = {id_carro}
+        """)
+
+        # Exclusão no banco com commit
+        oracle.write(f"DELETE FROM carros WHERE id_carro = {id_carro}")
+
+        carro_excluido = Carro(
+            df_carro.id_carro.values[0],
+            df_carro.modelo.values[0],
+            df_carro.placa.values[0],
+            df_carro.categoria.values[0],
+            df_carro.valor_diaria.values[0]
+        )
+
+        print("\nCarro removido com sucesso!")
+        print(carro_excluido.to_string())
 
     def verifica_existencia_carro(self, oracle: OracleQueries, placa: str = None, id_carro: int = None) -> bool:
         if placa:

@@ -74,7 +74,7 @@ class Controller_Locacao:
             funcionario
         )
 
-        print("\nLocação registrada com sucesso!")
+        print("\nLocação inserida com sucesso!")
         print(nova_locacao.to_string())
         return nova_locacao
 
