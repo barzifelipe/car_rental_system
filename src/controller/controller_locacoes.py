@@ -50,9 +50,9 @@ class Controller_Locacao:
                 f"FROM locacoes WHERE numero_reserva = {numero_reserva}"
             )
 
-            cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0])
-            carro = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0])
-            funcionario = Funcionario(df_func.id_funcionario.values[0], df_func.nome.values[0])
+            cliente = Cliente(df_cliente.cpf.values[0])
+            carro = Carro(df_carro.id_carro.values[0])
+            funcionario = Funcionario(df_func.id_funcionario.values[0])
 
             nova_locacao = Locacao(
                 df_loc.numero_reserva.values[0],
@@ -93,9 +93,9 @@ class Controller_Locacao:
             df_carro = oracle.sqlToDataFrame(f"SELECT id_carro, modelo FROM carros WHERE id_carro = {df_loc.id_carro.values[0]}")
             df_func = oracle.sqlToDataFrame(f"SELECT id_funcionario, nome FROM funcionarios WHERE id_funcionario = {df_loc.id_funcionario.values[0]}")
 
-            cliente = Cliente(df_cliente.cpf.values[0], df_cliente.nome.values[0])
-            carro = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0])
-            funcionario = Funcionario(df_func.id_funcionario.values[0], df_func.nome.values[0])
+            cliente = Cliente(df_cliente.cpf.values[0])
+            carro = Carro(df_carro.id_carro.values[0])
+            funcionario = Funcionario(df_func.id_funcionario.values[0])
 
             loc_atualizada = Locacao(
                 df_loc.numero_reserva.values[0],
