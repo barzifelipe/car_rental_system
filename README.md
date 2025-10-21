@@ -24,9 +24,9 @@ O banco de dados é composto por quatro entidades principais:
 - Scripts disponíveis em: [SQL](./sql)
 
 ## Relacionamentos
-- Cliente → Locação: um cliente pode realizar várias locações (1:N)  
-- Carro → Locação: um carro pode estar em várias locações ao longo do tempo (1:N)  
-- Funcionário → Locação: um funcionário pode registrar várias locações (1:N)  
+- Cliente - Locação: um cliente pode realizar várias locações (1:N)  
+- Carro - Locação: um carro pode estar em várias locações ao longo do tempo (1:N)  
+- Funcionário - Locação: um funcionário pode registrar várias locações (1:N)  
 
 ## Diagrama Entidade-Relacionamento (ER)
 O sistema possui quatro entidades principais: Cliente, Funcionário, Carro e Locação.  
@@ -51,7 +51,7 @@ Arquivo do diagrama: [diagrama.mmd](./diagrams/diagrama.mmd)
 git clone https://github.com/seu-usuario/sistema-locacao-veiculos.git
 
 2. Acesse a pasta do projeto:
-cd (sistema-locacao-veiculos)
+[Acesse a pasta do projeto](./sistema-locacao-veiculos)
 
 3. Crie as tabelas:
 [Executar create_tables_and_records.py](./src/create_tables_and_records.py)
