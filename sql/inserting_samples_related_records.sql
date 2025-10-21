@@ -45,3 +45,6 @@ BEGIN
         2
     );
 
+    COMMIT;
+END;
+
