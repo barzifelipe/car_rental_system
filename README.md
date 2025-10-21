@@ -21,7 +21,7 @@ O banco de dados é composto por quatro entidades principais:
 
 ## Banco de Dados
 - Banco utilizado: MySQL  
-- Scripts disponíveis em: [SQL](./sql)  
+- Scripts disponíveis em: [SQL](.src/sql)  
 
 ## Relacionamentos
 - Cliente → Locação: um cliente pode realizar várias locações (1:N)  
@@ -37,7 +37,7 @@ erDiagram
     FUNCIONARIO ||--o{ LOCACAO : "registra"
     CARRO ||--o{ LOCACAO : "é alugado em"
     
-Arquivo do diagrama: (./diagrams/diagrama.mmd)
+Arquivo do diagrama: [diagrama.mmd](./diagrams/diagrama.mmd)
 
 ## Tecnologias Utilizadas
 >Python;
@@ -54,10 +54,10 @@ git clone https://github.com/seu-usuario/sistema-locacao-veiculos.git
 cd (sistema-locacao-veiculos)
 
 3. Crie as tabelas:
-python (.src/create_tables_and_records.py)
+[Executar create_tables_and_records.py](./src/create_tables_and_records.py)
 
 4. Execute o sistema:
-python (.src/principal.py)
+[Executar principal.py](./src/principal.py)
 
 ## Autores:
 Emanoel Vitor Atanazio Ventura;
