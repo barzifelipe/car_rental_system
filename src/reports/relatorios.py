@@ -14,6 +14,9 @@ class Relatorio:
         with open("/home/labdatabase/Documents/car_rental_system/src/sql/relatorio_locacao.sql") as f:
             self.query_relatorio_locacao = f.read()
 
+        with open("/home/labdatabase/Documents/car_rental_system/src/sql/relatorio_total_valor_diarias.sql") as f:
+            self.query_relatorio_total_valor_diarias = f.read()
+
     def get_relatorio_carros_sistema(self):
         oracle = OracleQueries()
         oracle.connect()
@@ -38,5 +41,9 @@ class Relatorio:
         print(oracle.sqlToDataFrame(self.query_relatorio_locacao))
         input("\nPressione Enter para prosseguir ou sair\n")
 
-
+    def get_relatorio_total_valor_diarias(self):
+        oracle = OracleQueries()
+        oracle.connect()
+        print(oracle.sqlToDataFrame(self.query_relatorio_total_valor_diarias))
+        input("\nPressione Enter para prosseguir ou sair\n")
 

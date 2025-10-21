@@ -25,6 +25,8 @@ def reports(opcao_relatorio: int = 0):
         relatorio.get_relatorio_funcionarios() 
     elif opcao_relatorio == 4:
         relatorio.get_relatorio_locacao() 
+    elif opcao_relatorio == 5:
+        relatorio.get_relatorio_total_valor_diarias() 
 
 def inserir(opcao_inserir: int = 0):
     if opcao_inserir == 1:
@@ -79,7 +81,7 @@ def run():
 
         if opcao == 1:
             print(config.MENU_RELATORIOS)
-            opcao_relatorio = int(input("Escolha uma opção [1-5]: "))
+            opcao_relatorio = int(input("Escolha uma opção [1-6]: "))
             config.clear_console(1)
             if opcao_relatorio != 0:
                 reports(opcao_relatorio)

@@ -77,7 +77,8 @@ MENU_RELATORIOS = """
 2 - Relatório de Carros
 3 - Relatório de Funcionários
 4 - Relatório de Locações
-5 - Voltar
+5 - Relatório de Valor Diárias por Categoria
+6 - Voltar
 ===============================================
 """
 
