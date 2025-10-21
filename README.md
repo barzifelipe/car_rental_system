@@ -21,7 +21,7 @@ O banco de dados é composto por quatro entidades principais:
 
 ## Banco de Dados
 - Banco utilizado: MySQL  
-- Scripts disponíveis em: [SQL](./src/sql)
+- Scripts disponíveis em: [SQL](./sql)
 
 ## Relacionamentos
 - Cliente → Locação: um cliente pode realizar várias locações (1:N)  
