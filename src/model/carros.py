@@ -25,7 +25,7 @@ class Carro:
         self.categoria = categoria
 
     def set_valor_diaria(self, valor_diaria:float):
-        self.set_valor_diaria = valor_diaria
+        self.valor_diaria = valor_diaria
 
     def get_id_carro(self) -> str:
         return self.id_carro

@@ -33,6 +33,7 @@ class Controller_Funcionario:
 
             print("\nFuncionário inserido com sucesso!")
             print(novo_func.to_string())
+            input("\nPressione Enter para prosseguir.")
             return novo_func
         else:
             print(f"O Funcionário '{nome}' já está cadastrado.")
@@ -68,6 +69,7 @@ class Controller_Funcionario:
 
             print("\nFuncionário atualizado com sucesso!")
             print(func_atualizado.to_string())
+            input("\nPressione Enter para prosseguir.")
             return func_atualizado
         else:
             print(f"O ID {id_funcionario} não foi encontrado.")
@@ -96,6 +98,7 @@ class Controller_Funcionario:
 
             print("\nFuncionário removido com sucesso!")
             print(func_excluido.to_string())
+            input("\nPressione Enter para prosseguir.")
         else:
             print(f"O ID {id_funcionario} não foi encontrado.")
 

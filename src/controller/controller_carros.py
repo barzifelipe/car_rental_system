@@ -42,6 +42,7 @@ class Controller_Carro:
 
         print("\nCarro inserido com sucesso!")
         print(novo_carro.to_string())
+        input("\nPressione Enter para prosseguir.")
         return novo_carro
 
     def atualizar_carro(self) -> Carro:
@@ -84,6 +85,7 @@ class Controller_Carro:
 
         print("\nCarro atualizado com sucesso!")
         print(carro_atualizado.to_string())
+        input("\nPressione Enter para prosseguir.")
         return carro_atualizado
 
     def excluir_carro(self):
@@ -116,6 +118,7 @@ class Controller_Carro:
 
         print("\nCarro removido com sucesso!")
         print(carro_excluido.to_string())
+        input("\nPressione Enter para prosseguir.")
 
     def verifica_existencia_carro(self, oracle: OracleQueries, placa: str = None, id_carro: int = None) -> bool:
         if placa:

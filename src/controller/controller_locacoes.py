@@ -76,6 +76,7 @@ class Controller_Locacao:
 
         print("\nLocação inserida com sucesso!")
         print(nova_locacao.to_string())
+        input("\nPressione Enter para prosseguir.")
         return nova_locacao
 
     def atualizar_locacao(self) -> Locacao:
@@ -116,6 +117,7 @@ class Controller_Locacao:
 
         print("\nLocação atualizada com sucesso!")
         print(loc_atualizada.to_string())
+        input("\nPressione Enter para prosseguir.")
         return loc_atualizada
 
     def excluir_locacao(self):
@@ -133,6 +135,7 @@ class Controller_Locacao:
 
         print("\nLocação removida com sucesso!")
         print(f"Reserva: {df_loc.numero_reserva.values[0]} | CPF: {df_loc.cpf.values[0]} | Veículo: {df_loc.id_carro.values[0]}")
+        input("\nPressione Enter para prosseguir.")
 
     def verifica_existencia_locacao(self, oracle: OracleQueries, numero_reserva: int = None, id_carro: int = None) -> bool:
         if numero_reserva:

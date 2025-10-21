@@ -35,7 +35,7 @@ class Controller_Cliente:
 
         print("\nCliente inserido com sucesso!")
         print(novo_cliente.to_string())
-
+        input("\nPressione Enter para prosseguir.")
         return novo_cliente
 
     def atualizar_cliente(self) -> Cliente:
@@ -69,7 +69,7 @@ class Controller_Cliente:
 
         print("\nCliente atualizado com sucesso! ")
         print(cliente_atualizado.to_string())
-
+        input("\nPressione Enter para prosseguir.")
         return cliente_atualizado
 
     def excluir_cliente(self):
@@ -98,6 +98,7 @@ class Controller_Cliente:
 
         print("\nCliente removido com sucesso! ")
         print(cliente_excluido.to_string())
+        input("\nPressione Enter para prosseguir.")
 
     def verifica_existencia_cliente(self, oracle: OracleQueries, cpf: str = None) -> bool:
         if not cpf:
