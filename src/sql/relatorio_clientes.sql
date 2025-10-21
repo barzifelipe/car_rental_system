@@ -3,4 +3,4 @@ SELECT
     cli.NOME_CLIENTE,
     cli.CPF
 FROM CLIENTES cli
-    ORDER BY cli.NOME_CLIENTE
+    ORDER BY cli.ID_CARRO
