@@ -5,14 +5,14 @@ class SplashScreenLocadora:
     def __init__(self):
         self.created_by = (
             "Emanoel Vitor Ventura Atanazio | "
-            "Felipe Rodrigues Barzilai | "
+            "Felipe Rodrigues Barzilai\n "
             "João Emanoel Justino | "
-            "Livia Favato Bastos Neves | "
+            "Livia Favato Bastos Neves\n "
             "Rogeres Jose Prates da Silva"
         )
-        self.professor = "Prof. M.Sc. Howard Roatti"
-        self.disciplina = "Banco de Dados"
-        self.semestre = "2025/2"
+        self.professor = "Howard Roatti"
+        self.disciplina = "Banco de Dados\n 2025/2"
+       
 
     def get_total(self, tabela: str):
         """Retorna o total de registros de uma tabela"""
@@ -31,17 +31,18 @@ class SplashScreenLocadora:
         total_locacoes = str(self.get_total('locacoes')).rjust(5)
 
         return f"""
-        ================ SISTEMA DE LOCAÇÃO DE VEÍCULOS ==================
-        ||                                                              ||
-        || TOTAL DE REGISTROS:                                          ||    
-        ||     1 - CLIENTES:         {total_clientes}                   ||
-        ||     2 - CARROS:         {total_carros}                       ||
-        ||     3 - FUNCIONÁRIOS:     {total_funcionarios}               ||
-        ||     4 - LOCAÇÕES:         {total_locacoes}                   ||
-        ||                                                              ||
-        ||   CRIADO POR: {self.created_by}                              ||
-        ||   PROFESSOR:  {self.professor}                               ||
-        ||   DISCIPLINA: {self.disciplina}                              ||
-        ||               {self.semestre}                                ||
-         =================================================================
+        ================= SISTEMA DE LOCAÇÃO DE VEÍCULOS =================
+                                                                     
+         TOTAL DE REGISTROS:                                             
+            1 - CLIENTES:        {total_clientes}                   
+            2 - CARROS:          {total_carros}                       
+            3 - FUNCIONÁRIOS:    {total_funcionarios}               
+            4 - LOCAÇÕES:        {total_locacoes}                   
+                                                                     
+           CRIADO POR: {self.created_by}                              
+           PROFESSOR:  {self.professor}                               
+           DISCIPLINA: {self.disciplina}                              
+                                                     
+         ==============================================================
+
         """

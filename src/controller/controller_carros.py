@@ -6,107 +6,118 @@ class Controller_Carro:
         pass
 
     def inserir_carro(self) -> Carro:
-
-        # Cria uma nova conexão com o banco que permite alteração
         oracle = OracleQueries(can_write=True)
         oracle.connect()
 
-        # Solicita ao usuário a placa do novo carro
-        placa = input("Placa do carro (Nova): ")
+        placa = input("Informe a placa do novo Carro: ")
 
-        # Verifica se o carro já existe
-        if self.verifica_existencia_carro(oracle, placa):
+        # Verifica se a placa já existe
+        if self.verifica_existencia_carro(oracle, placa=placa):
             print(f"A placa {placa} já está cadastrada no sistema.")
             return None
 
-        # Solicita os demais dados do carro
-        modelo = input("Modelo do carro: ")
-        categoria = input("Categoria do carro: ")
-        valor_diaria = float(input("Valor da diária de locação: "))
-        
-        # Insere e persiste o novo carro
-        oracle.write(f"insert into carros (modelo, placa, categoria, valor_diaria) values ('{modelo}','{placa}', '{categoria}', {valor_diaria})")
-        
-        # Recupera os dados do novo carro criado
-        df_carro = oracle.sqlToDataFrame(f"select id_carro, modelo, placa, categoria, valor_diaria from carros where placa = '{placa}'")
-        
-        # Cria um novo objeto Carro
-        novo_carro = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0], df_carro.placa.values[0], df_carro.categoria.values[0], df_carro.valor_diaria.values[0])
-        
-        # Exibe os atributos do novo carro
+        modelo = input("Informe o modelo do Carro: ")
+        categoria = input("Informe a categoria do Carro: ")
+        valor_diaria = float(input("Informe o valor da diária de locação: "))
+
+        oracle.write(f"""
+            INSERT INTO carros (id_carro, modelo, placa, categoria, valor_diaria)
+            VALUES (LABDATABASE.CARROS_ID_CARRO_SEQ.NEXTVAL, '{modelo}', '{placa}', '{categoria}', {valor_diaria})
+        """)
+
+        df_carro = oracle.sqlToDataFrame(f"""
+            SELECT id_carro, modelo, placa, categoria, valor_diaria 
+            FROM carros 
+            WHERE placa = '{placa}'
+        """)
+
+        novo_carro = Carro(
+            df_carro.id_carro.values[0],
+            df_carro.modelo.values[0],
+            df_carro.placa.values[0],
+            df_carro.categoria.values[0],
+            df_carro.valor_diaria.values[0]
+        )
+
+        print("\nCarro inserido com sucesso!")
         print(novo_carro.to_string())
-        
-        # Retorna o objeto novo_carro
         return novo_carro
 
     def atualizar_carro(self) -> Carro:
-
-        # Cria uma nova conexão com o banco que permite alteração
         oracle = OracleQueries(can_write=True)
         oracle.connect()
 
-        # Solicita ao usuário o ID do carro a ser alterado
-        id_carro = int(input("ID do carro que deseja alterar: "))
+        id_carro = int(input("Informe o ID do Carro que deseja alterar: "))
 
-        # Verifica se o carro existe
-        if not self.verifica_existencia_carro(oracle, id_carro=id_carro):
-            print(f"O carro com ID {id_carro} não foi encontrado.")
+        if self.verifica_existencia_carro(oracle, id_carro=id_carro):
+            novo_modelo = input("Informe o novo modelo: ")
+            nova_categoria = input("Informe a nova categoria: ")
+            novo_valor_diaria = float(input("Informe o novo valor da diária: "))
+
+            oracle.write(f"""
+                UPDATE carros 
+                SET modelo = '{novo_modelo}', 
+                    categoria = '{nova_categoria}', 
+                    valor_diaria = {novo_valor_diaria}
+                WHERE id_carro = {id_carro}
+            """)
+
+            df_carro = oracle.sqlToDataFrame(f"""
+                SELECT id_carro, modelo, placa, categoria, valor_diaria 
+                FROM carros 
+                WHERE id_carro = {id_carro}
+            """)
+
+            carro_atualizado = Carro(
+                df_carro.id_carro.values[0],
+                df_carro.modelo.values[0],
+                df_carro.placa.values[0],
+                df_carro.categoria.values[0],
+                df_carro.valor_diaria.values[0]
+            )
+
+            print("\nCarro atualizado com sucesso!")
+            print(carro_atualizado.to_string())
+            return carro_atualizado
+        else:
+            print(f"O Carro com ID {id_carro} não foi encontrado.")
             return None
 
-        # Solicita os novos dados do carro
-        nova_categoria = input("Nova categoria: ")
-        novo_valor_diaria = float(input("Novo valor da diária: "))
-        
-        # Atualiza os dados do carro
-        oracle.write(f"update carros set categoria = '{nova_categoria}', valor_diaria = {novo_valor_diaria} where id_carro = {id_carro}")
-        
-        # Recupera os dados atualizados do carro
-        df_carro = oracle.sqlToDataFrame(f"select id_carro, modelo, placa, categoria, valor_diaria from carros where id_carro = {id_carro}")
-        
-        # Cria um objeto Carro com os dados atualizados
-        carro_atualizado = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0], df_carro.placa.values[0], df_carro.categoria.values[0], df_carro.valor_diaria.values[0])
-        
-        # Exibe os atributos do carro atualizado
-        print(carro_atualizado.to_string())
-        
-        # Retorna o objeto carro_atualizado
-        return carro_atualizado
-
     def excluir_carro(self):
-
-        # Cria uma nova conexão com o banco que permite alteração
         oracle = OracleQueries(can_write=True)
         oracle.connect()
 
-        # Solicita ao usuário o ID do carro a ser excluído
-        id_carro = int(input("ID do carro que será excluído: "))
+        id_carro = int(input("Informe o ID do Carro a ser excluído: "))
 
-        # Verifica se o carro existe
-        if not self.verifica_existencia_carro(oracle, id_carro=id_carro):
-            print(f"O carro com ID {id_carro} não foi encontrado.")
-            return
+        if self.verifica_existencia_carro(oracle, id_carro=id_carro):
+            df_carro = oracle.sqlToDataFrame(f"""
+                SELECT id_carro, modelo, placa, categoria, valor_diaria 
+                FROM carros 
+                WHERE id_carro = {id_carro}
+            """)
 
-        # Recupera os dados do carro antes de excluir
-        df_carro = oracle.sqlToDataFrame(f"select id_carro, modelo, placa, categoria, valor_diaria from carros where id_carro = {id_carro}")
-        
-        # Exclui o carro
-        oracle.write(f"delete from carros where id_carro = {id_carro}")
-        
-        # Cria um objeto Carro com os dados do carro excluído para exibição
-        carro_excluido = Carro(df_carro.id_carro.values[0], df_carro.modelo.values[0], df_carro.placa.values[0], df_carro.categoria.values[0], df_carro.valor_diaria.values[0])
-        
-        # Exibe a confirmação da exclusão
-        print("Carro Removido com Sucesso!")
-        print(carro_excluido.to_string())
+            oracle.write(f"DELETE FROM carros WHERE id_carro = {id_carro}")
+
+            carro_excluido = Carro(
+                df_carro.id_carro.values[0],
+                df_carro.modelo.values[0],
+                df_carro.placa.values[0],
+                df_carro.categoria.values[0],
+                df_carro.valor_diaria.values[0]
+            )
+
+            print("\nCarro removido com sucesso!")
+            print(carro_excluido.to_string())
+        else:
+            print(f"O Carro com ID {id_carro} não foi encontrado.")
 
     def verifica_existencia_carro(self, oracle: OracleQueries, placa: str = None, id_carro: int = None) -> bool:
-
         if placa:
-            query = f"select id_carro from carros where placa = '{placa}'"
+            query = f"SELECT id_carro FROM carros WHERE placa = '{placa}'"
         elif id_carro:
-            query = f"select id_carro from carros where id_carro = {id_carro}"
+            query = f"SELECT id_carro FROM carros WHERE id_carro = {id_carro}"
         else:
             return False
-            
+
         df_carro = oracle.sqlToDataFrame(query)
         return not df_carro.empty

@@ -62,13 +62,13 @@ END;
 
 
 MENU_PRINCIPAL = """
-================== SISTEMA DE LOCAÇÃO ==================
+================== MENU PRINCIPAL ==================
 1 - Relatórios
 2 - Inserir registro
 3 - Atualizar registro
 4 - Excluir registro
 5 - Sair
-=========================================================
+======================================================
 """
 
 MENU_RELATORIOS = """
