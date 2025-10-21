@@ -1,7 +1,7 @@
 # SISTEMA DE LOCAÇÃO DE VEÍCULOS
 
 O Sistema de Locação de Veículos tem como objetivo gerenciar o processo de aluguel de carros, controlando informações de clientes, funcionários, veículos e locações.  
-O projeto registra reservas, calcula períodos de locação e permite relatórios por modelo e duração.
+O projeto registra reservas, calcula períodos de locação e permite relatórios por categoria.
 
 O sistema possibilita o controle completo do ciclo de locação, desde o cadastro de clientes e veículos até o registro das reservas feitas pelos funcionários.  
 Cada locação armazena quem alugou, qual carro foi alugado, quem realizou o atendimento e as datas de início e término da reserva.
@@ -50,7 +50,7 @@ Arquivo do diagrama: [diagrama.mmd](./diagrams/diagrama.mmd)
 ## Como Executar o Projeto:
 
 1. Clone o repositório:
-git clone https://github.com/barzifelipe/car_rental_syst.git
+git clone https://github.com/barzifelipe/car_rental_system.git
 
 2. Crie as tabelas:
 [Executar create_tables_and_records.py](./src/create_tables_and_records.py)
