@@ -7,7 +7,7 @@ BEGIN
         LABDATABASE.LOCACOES_NUMERO_RESERVA_SEQ.NEXTVAL,
         TO_DATE('2025-10-21','YYYY-MM-DD'),
         TO_DATE('2025-10-23','YYYY-MM-DD'),
-        '201',
+        '201',  -- CPF de 3 dígitos
         (SELECT ID_CARRO FROM LABDATABASE.CARROS WHERE PLACA = 'HCA4321'),
         2
     );
@@ -46,5 +46,8 @@ BEGIN
     );
 
     COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Erro ao inserir locações: ' || SQLERRM);
 END;
-
