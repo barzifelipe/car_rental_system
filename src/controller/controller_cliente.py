@@ -9,29 +9,30 @@ class Controller_Cliente:
         oracle = OracleQueries(can_write=True)
         oracle.connect()
 
-        cpf = input("Informe o CPF do novo Cliente: ")
+        nome_cliente = input("Informe o nome do novo Cliente: ")
 
-        if self.verifica_existencia_cliente(oracle, cpf):
-            print(f"O CPF {cpf} já está cadastrado no sistema.")
+        if self.verifica_existencia_cliente(oracle, nome_cliente=nome_cliente):
+            print(f"O Cliente '{nome_cliente}' já está cadastrado no sistema.")
             input("\nPressione Enter para prosseguir")
             return None
-
-        nome = input("Informe o nome completo do Cliente: ")
-        cnh = input("Informe o número da CNH do Cliente: ")
+        
+        cpf = input("Informe o CPF do Cliente: ")
 
         oracle.write(f"""
-            INSERT INTO clientes (cpf, nome, cnh)
-            VALUES ('{cpf}', '{nome}', '{cnh}')
+            INSERT INTO clientes (id_cliente, nome_cliente, cpf)
+            VALUES (LABDATABASE.CLIENTES_ID_CLIENTE_SEQ.NEXTVAL, '{nome_cliente}', '{cpf}')
         """)
 
         df_cliente = oracle.sqlToDataFrame(f"""
-            SELECT cpf, nome, cnh FROM clientes WHERE cpf = '{cpf}'
+            SELECT id_cliente, nome_cliente, cpf
+            FROM clientes
+            WHERE nome_cliente = '{nome_cliente}'
         """)
 
         novo_cliente = Cliente(
-            df_cliente.cpf.values[0],
-            df_cliente.nome.values[0],
-            df_cliente.cnh.values[0]
+            df_cliente.id_cliente.values[0],
+            df_cliente.nome_cliente.values[0],
+            df_cliente.cpf.values[0]
         )
 
         print("\nCliente inserido com sucesso!")
@@ -43,34 +44,35 @@ class Controller_Cliente:
         oracle = OracleQueries(can_write=True)
         oracle.connect()
 
-        cpf = input("Informe o CPF do Cliente que deseja alterar: ")
+        id_cliente = int(input("Informe o ID do Cliente que deseja atualizar: "))
 
-        if not self.verifica_existencia_cliente(oracle, cpf=cpf):
-            print(f"O Cliente com o CPF {cpf} não foi encontrado.")
+        if not self.verifica_existencia_cliente(oracle, id_cliente=id_cliente):
+            print(f"O ID {id_cliente} não foi encontrado.")
             input("\nPressione Enter para prosseguir")
             return None
-        
-        novo_cpf = input("Informe o novo CPF do Cliente: ")
-        novo_nome = input("Informe o novo nome do Cliente: ")
-        nova_cnh = input("Informe sua nova CNH do Cliente:: ")
+
+        nome_cliente = input("Informe o novo nome do Cliente: ")
+        cpf = input("Informe o novo CPF do Cliente: ")
 
         oracle.write(f"""
-            UPDATE clientes 
-            SET cpf = '{novo_cpf}', nome = '{novo_nome}', cnh = '{nova_cnh}'
-            WHERE cpf = '{cpf}'
+            UPDATE clientes
+            SET nome_cliente = '{nome_cliente}', cpf = '{cpf}'
+            WHERE id_cliente = {id_cliente}
         """)
 
         df_cliente = oracle.sqlToDataFrame(f"""
-            SELECT cpf, nome, cnh FROM clientes WHERE cpf = '{novo_cpf}'
+            SELECT id_cliente, nome_cliente, cpf
+            FROM clientes
+            WHERE id_cliente = {id_cliente}
         """)
 
         cliente_atualizado = Cliente(
-            df_cliente.cpf.values[0],
-            df_cliente.nome.values[0],
-            df_cliente.cnh.values[0]
+            df_cliente.id_cliente.values[0],
+            df_cliente.nome_cliente.values[0],
+            df_cliente.cpf.values[0]
         )
 
-        print("\nCliente atualizado com sucesso! ")
+        print("\nCliente atualizado com sucesso!")
         print(cliente_atualizado.to_string())
         input("\nPressione Enter para prosseguir")
         return cliente_atualizado
@@ -79,36 +81,38 @@ class Controller_Cliente:
         oracle = OracleQueries(can_write=True)
         oracle.connect()
 
-        cpf = input("Informe o CPF do Cliente a ser excluído: ")
+        id_cliente = int(input("Informe o ID do Cliente que deseja excluir: "))
 
-        if not self.verifica_existencia_cliente(oracle, cpf=cpf):
-            print(f"O Cliente com o CPF {cpf} não foi encontrado.")
+        if not self.verifica_existencia_cliente(oracle, id_cliente=id_cliente):
+            print(f"O ID {id_cliente} não foi encontrado.")
             input("\nPressione Enter para prosseguir")
             return
 
         df_cliente = oracle.sqlToDataFrame(f"""
-            SELECT cpf, nome, cnh FROM clientes WHERE cpf = '{cpf}'
+            SELECT id_cliente, nome_cliente, cpf
+            FROM clientes
+            WHERE id_cliente = {id_cliente}
         """)
 
-        oracle.write(f"""
-            DELETE FROM clientes WHERE cpf = '{cpf}'
-        """)
+        oracle.write(f"DELETE FROM clientes WHERE id_cliente = {id_cliente}")
 
         cliente_excluido = Cliente(
-            df_cliente.cpf.values[0],
-            df_cliente.nome.values[0],
-            df_cliente.cnh.values[0]
+            df_cliente.id_cliente.values[0],
+            df_cliente.nome_cliente.values[0],
+            df_cliente.cpf.values[0]
         )
 
-        print("\nCliente removido com sucesso! ")
+        print("\nCliente removido com sucesso!")
         print(cliente_excluido.to_string())
         input("\nPressione Enter para prosseguir")
 
-    def verifica_existencia_cliente(self, oracle: OracleQueries, cpf: str = None) -> bool:
-        if not cpf:
+    def verifica_existencia_cliente(self, oracle: OracleQueries, id_cliente: int = None, nome_cliente: str = None) -> bool:
+        if id_cliente is not None:
+            query = f"SELECT id_cliente FROM clientes WHERE id_cliente = {id_cliente}"
+        elif nome_cliente is not None:
+            query = f"SELECT nome_cliente FROM clientes WHERE nome_cliente = '{nome_cliente}'"
+        else:
             return False
 
-        query = f"SELECT cpf FROM clientes WHERE cpf = '{cpf}'"
         df_cliente = oracle.sqlToDataFrame(query)
         return not df_cliente.empty
-

@@ -1,30 +1,30 @@
 class Cliente:
     def __init__(self,
-                cpf:str=None,
-                nome:str=None,
-                cnh:str=None
+                 id_cliente: int = None,
+                 nome_cliente: str = None,
+                 cpf: str = None
                 ):
+        self.set_id_cliente(id_cliente)
+        self.set_nome_cliente(nome_cliente)
         self.set_cpf(cpf)
-        self.set_nome(nome)
-        self.set_cnh(cnh)
+
+    def set_id_cliente(self, id_cliente: int):
+        self.id_cliente = id_cliente
     
-    def set_cpf(self, cpf:str):
+    def set_nome_cliente(self, nome_cliente: str):
+        self.nome_cliente = nome_cliente
+
+    def set_cpf(self, cpf: str):
         self.cpf = cpf
+
+    def get_id_cliente(self) -> int:
+        return self.id_cliente
     
-    def set_nome(self, nome:str):
-        self.nome = nome
-
-    def set_cnh(self, cnh:str):
-        self.cnh = cnh
-
+    def get_nome_cliente(self) -> str:
+        return self.nome_cliente
+    
     def get_cpf(self) -> str:
         return self.cpf
     
-    def get_nome(self) -> str:
-        return self.nome
-
-    def get_cnh(self) -> str:
-        return self.cnh
-    
-    def to_string(self) -> str:
-        return f"CPF: {self.get_cpf()} | Nome: {self.get_nome()} | CNH: {self.get_cnh()}"
+    def to_string(self):
+        return f"ID Cliente: {self.get_id_cliente()} | Nome: {self.get_nome_cliente()} | CPF: {self.get_cpf()}"

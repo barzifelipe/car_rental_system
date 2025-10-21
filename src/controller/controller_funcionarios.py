@@ -51,8 +51,8 @@ class Controller_Funcionario:
             input("\nPressione Enter para prosseguir")
             return None
 
-        nome = input("Novo nome: ")
-        cargo = input("Novo cargo: ")
+        nome = input("Informe o novo nome do Fucionário: ")
+        cargo = input("Informe o novo cargo do Funcionário: ")
 
         oracle.write(f"""
             UPDATE funcionarios

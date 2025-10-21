@@ -1,6 +1,6 @@
 SELECT
-    cli.CPF,
-    cli.NOME,
-    cli.CNH
+    cli.ID_CLIENTE,
+    cli.NOME_CLIENTE,
+    cli.CPF
 FROM CLIENTES cli
-    ORDER BY cli.NOME
+    ORDER BY cli.NOME_CLIENTE
