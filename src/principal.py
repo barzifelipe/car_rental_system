@@ -69,7 +69,7 @@ def excluir(opcao_excluir: int = 0):
 
 def run():
     print(tela_inicial.get_updated_screen())
-    time.sleep(5)
+    time.sleep(4)
     config.clear_console()
 
     while True:
@@ -100,6 +100,9 @@ def run():
             opcao_atualizar = int(input("Escolha uma opção [1-4]: "))
             config.clear_console(1)
             atualizar(opcao_atualizar)
+            config.clear_console()
+            print(tela_inicial.get_updated_screen())
+            time.sleep(1)
             config.clear_console()
 
         elif opcao == 4:

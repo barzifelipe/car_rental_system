@@ -4,9 +4,9 @@ from utils import config
 class SplashScreenLocadora:
     def __init__(self):
         self.created_by = (
-           ' Emanoel Vitor Ventura Atanazio | Felipe Rodrigues Barzilai'
-           '\n\t\t\tJoão Emanoel Justino | Livia Favato Bastos Neves'
-           '\n\t\t\tRogeres Jose Prates da Silva\n'
+           ' Emanoel Vitor V. Atanazio | Felipe R. Barzilai'
+           '\n\t\t\tJoão Emanoel Justino | Livia Favato B. Neves'
+           '\n\t\t\tRogeres Jose P. da Silva\n'
         )
         self.professor = "Howard Roatti"
         self.disciplina = "Banco de Dados\t2025/2"
