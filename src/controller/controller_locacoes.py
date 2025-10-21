@@ -54,7 +54,7 @@ class Controller_Locacao:
             f"INSERT INTO locacoes (numero_reserva, data_inicio, data_fim, cpf, id_carro, id_funcionario) "
             f"VALUES (LABDATABASE.LOCACOES_NUMERO_RESERVA_SEQ.NEXTVAL, "
             f"TO_DATE('{data_inicio}', 'DD/MM/YYYY'), TO_DATE('{data_fim}', 'DD/MM/YYYY'), "
-            f"'{cpf}', {id_carro}, {id_funcionario})"
+            f"'{cpf}', '{id_carro}', '{id_funcionario}')"
         )
 
        

@@ -66,9 +66,9 @@ class Controller_Carro:
         oracle.write(f"""
             UPDATE carros 
             SET modelo = '{novo_modelo}', 
-                placa  = "{nova_placa}',
+                placa  = '{nova_placa}',
                 categoria = '{nova_categoria}', 
-                valor_diaria = {novo_valor_diaria}
+                valor_diaria = '{novo_valor_diaria}'
             WHERE id_carro = {id_carro}
         """)
 
