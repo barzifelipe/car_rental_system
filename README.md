@@ -50,13 +50,10 @@ Arquivo do diagrama: [diagrama.mmd](./diagrams/diagrama.mmd)
 1. Clone o repositório:
 git clone https://github.com/seu-usuario/sistema-locacao-veiculos.git
 
-2. Acesse a pasta do projeto:
-[Acesse a pasta do projeto](./car_rental_system)
-
-3. Crie as tabelas:
+2. Crie as tabelas:
 [Executar create_tables_and_records.py](./src/create_tables_and_records.py)
 
-4. Execute o sistema:
+3. Execute o sistema:
 [Executar principal.py](./src/principal.py)
 
 ## Autores:
