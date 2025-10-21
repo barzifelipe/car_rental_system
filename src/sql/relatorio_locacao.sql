@@ -13,3 +13,4 @@ JOIN labdatabase.carros car
 JOIN labdatabase.funcionarios func 
     ON loc.id_funcionario = func.id_funcionario
 ORDER BY loc.numero_reserva
+/
