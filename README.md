@@ -28,7 +28,7 @@ Registra cada reserva efetuada, relacionando cliente, carro e funcionário.
 
 ## Banco de Dados:
 Banco utilizado: MySQL
-Scripts disponíveis em: (/sql)
+Scripts disponíveis em: (./sql)
 
 ## Relacionamentos:
 Cliente → Locação: um cliente pode realizar várias locações (1:N)
@@ -44,7 +44,7 @@ erDiagram
     FUNCIONARIO ||--o{ LOCACAO : "registra"
     CARRO ||--o{ LOCACAO : "é alugado em"
     
-Arquivo do diagrama: (/diagrams/diagrama.mmd)
+Arquivo do diagrama: (./diagrams/diagrama.mmd)
 
 ## Tecnologias Utilizadas
 >Python;
@@ -61,10 +61,10 @@ git clone https://github.com/seu-usuario/sistema-locacao-veiculos.git
 cd (sistema-locacao-veiculos)
 
 3. Crie as tabelas:
-python (src/create_tables_and_records.py)
+python (.src/create_tables_and_records.py)
 
 4. Execute o sistema:
-python (src/principal.py)
+python (.src/principal.py)
 
 ## Autores:
 Emanoel Vitor Atanazio Ventura;
