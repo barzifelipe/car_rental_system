@@ -6,4 +6,4 @@ FROM labdatabase.locacoes loc
 JOIN labdatabase.carros car
     ON loc.id_carro = car.id_carro
 GROUP BY car.categoria
-ORDER BY total_valor_diarias DESC;
+ORDER BY total_valor_diarias DESC
