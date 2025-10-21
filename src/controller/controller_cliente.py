@@ -61,7 +61,7 @@ class Controller_Cliente:
         """)
 
         df_cliente = oracle.sqlToDataFrame(f"""
-            SELECT cpf, nome, cnh FROM clientes WHERE cpf = '{cpf}'
+            SELECT cpf, nome, cnh FROM clientes WHERE cpf = '{novo_cpf}'
         """)
 
         cliente_atualizado = Cliente(

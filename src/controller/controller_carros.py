@@ -58,14 +58,16 @@ class Controller_Carro:
             input("\nPressione Enter para prosseguir")
             return None
 
-        novo_modelo = input("Informe o novo modelo: ")
-        nova_categoria = input("Informe a nova categoria: ")
-        novo_valor_diaria = float(input("Informe o novo valor da diária: "))
+        novo_modelo = input("Informe o novo modelo do Carro: ")
+        nova_placa = input("Informe a nova placa do Carro: ")
+        nova_categoria = input("Informe a nova categoria do Carro: ")
+        novo_valor_diaria = float(input("Informe o novo valor da diária do Carro: "))
 
         # Atualização no banco com commit
         oracle.write(f"""
             UPDATE carros 
             SET modelo = '{novo_modelo}', 
+                placa  = "{nova_placa}',
                 categoria = '{nova_categoria}', 
                 valor_diaria = {novo_valor_diaria}
             WHERE id_carro = {id_carro}

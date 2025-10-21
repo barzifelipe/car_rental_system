@@ -92,6 +92,7 @@ def run():
             inserir(opcao_inserir)
             config.clear_console()
             print(tela_inicial.get_updated_screen())
+            time.sleep(5)
             config.clear_console()
 
         elif opcao == 3:
@@ -108,10 +109,12 @@ def run():
             excluir(opcao_excluir)
             config.clear_console()
             print(tela_inicial.get_updated_screen())
+            time.sleep(5)
             config.clear_console()
 
         elif opcao == 5:
             print(tela_inicial.get_updated_screen())
+            time.sleep(5)
             config.clear_console()
             print("Obrigado por utilizar o Sistema da Locadora!")
             break
