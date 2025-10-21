@@ -7,9 +7,11 @@ O sistema possibilita o controle completo do ciclo de locação, desde o cadastr
 Cada locação armazena quem alugou, qual carro foi alugado, quem realizou o atendimento e as datas de início e término da reserva.
 
 ## Relatórios Disponíveis
-- Locações por modelo de veículo  
-- Duração média das locações  
-- Histórico de clientes e atendimentos  
+- Relatório de Clientes;
+- Relatório de Funcionários;
+- Relatório de Carros;
+- Relatório de Locações;
+- Relatório de Valor Diárias por Categoria.
 
 ## Estrutura do Banco de Dados
 O banco de dados é composto por quatro entidades principais:
@@ -48,7 +50,7 @@ Arquivo do diagrama: [diagrama.mmd](./diagrams/diagrama.mmd)
 ## Como Executar o Projeto:
 
 1. Clone o repositório:
-git clone https://github.com/seu-usuario/sistema-locacao-veiculos.git
+git clone https://github.com/barzifelipe/car_rental_syst.git
 
 2. Crie as tabelas:
 [Executar create_tables_and_records.py](./src/create_tables_and_records.py)
