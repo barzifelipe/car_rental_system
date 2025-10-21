@@ -11,7 +11,7 @@ class OracleQueries:
         self.port = 1521
         self.service_name = 'XEPDB1'
 
-        # Caminho seguro para o arquivo de autenticação, relativo a este script
+        
         base_dir = os.path.dirname(os.path.abspath(__file__))
         auth_file = os.path.join(base_dir, "passphrase", "authentication.oracle")
 
@@ -30,15 +30,9 @@ class OracleQueries:
             self.close()
 
     def connectionString(self) -> str:
-        """
-        String de conexão no modo Thin do oracledb.
-        """
         return f"{self.host}:{self.port}/{self.service_name}"
 
     def connect(self):
-        """
-        Conecta ao banco Oracle usando oracledb Thin.
-        """
         self.conn = oracledb.connect(
             user=self.user,
             password=self.passwd,

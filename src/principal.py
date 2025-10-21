@@ -7,7 +7,6 @@ from controller.controller_locacoes import Controller_Locacao
 from reports.relatorios import Relatorio
 import time
 
-# Instanciando classes principais do sistema
 tela_inicial = SplashScreenLocadora()
 relatorio = Relatorio()
 ctrl_cliente = Controller_Cliente()

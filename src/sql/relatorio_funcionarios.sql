@@ -1,6 +1,6 @@
 SELECT
-func.ID_FUNCIONARIO,
-func.NOME,
-func.CARGO
+    func.ID_FUNCIONARIO,
+    func.NOME,
+    func.CARGO
 FROM FUNCIONARIOS func
-ORDER BY func.NOME
+    ORDER BY func.NOME

@@ -11,7 +11,7 @@ class Controller_Carro:
 
         placa = input("Informe a placa do novo Carro: ")
 
-        # Se já existir, não insere
+       
         if self.verifica_existencia_carro(oracle, placa=placa):
             print(f"A placa {placa} já está cadastrada no sistema.")
             input("\nPressione Enter para prosseguir")
@@ -21,7 +21,7 @@ class Controller_Carro:
         categoria = input("Informe a categoria do Carro: ")
         valor_diaria = float(input("Informe o valor da diária de locação: "))
 
-        # Inserção no banco com commit
+       
         oracle.write(f"""
             INSERT INTO carros (id_carro, modelo, placa, categoria, valor_diaria)
             VALUES (LABDATABASE.CARROS_ID_CARRO_SEQ.NEXTVAL, '{modelo}', '{placa}', '{categoria}', {valor_diaria})
@@ -52,7 +52,6 @@ class Controller_Carro:
 
         id_carro = int(input("Informe o ID do Carro que deseja alterar: "))
 
-        # Se não existir, não atualiza
         if not self.verifica_existencia_carro(oracle, id_carro=id_carro):
             print(f"O Carro com ID {id_carro} não foi encontrado.")
             input("\nPressione Enter para prosseguir")
@@ -63,7 +62,7 @@ class Controller_Carro:
         nova_categoria = input("Informe a nova categoria do Carro: ")
         novo_valor_diaria = float(input("Informe o novo valor da diária do Carro: "))
 
-        # Atualização no banco com commit
+       
         oracle.write(f"""
             UPDATE carros 
             SET modelo = '{novo_modelo}', 
@@ -98,7 +97,7 @@ class Controller_Carro:
 
         id_carro = int(input("Informe o ID do Carro a ser excluído: "))
 
-        # Se não existir, não exclui
+      
         if not self.verifica_existencia_carro(oracle, id_carro=id_carro):
             print(f"O Carro com ID {id_carro} não foi encontrado.")
             input("\nPressione Enter para prosseguir")
@@ -110,7 +109,6 @@ class Controller_Carro:
             WHERE id_carro = {id_carro}
         """)
 
-        # Exclusão no banco com commit
         oracle.write(f"DELETE FROM carros WHERE id_carro = {id_carro}")
 
         carro_excluido = Carro(

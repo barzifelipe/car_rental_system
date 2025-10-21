@@ -1,4 +1,4 @@
-# utils/config.py
+
 import os
 
 
@@ -12,7 +12,6 @@ def clear_console(wait_seconds: int = 0):
 
 DB_SCHEMA = "LABDATABASE"
 
-# Query genérica para contar registros em qualquer tabela
 QUERY_COUNT = "SELECT COUNT(*) AS total_{tabela} FROM LABDATABASE.{tabela}"
 
 QUERY_INSERT_CLIENTE = """

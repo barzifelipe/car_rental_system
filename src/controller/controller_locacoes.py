@@ -19,7 +19,7 @@ class Controller_Locacao:
         data_inicio = input("Data de Início (dd/mm/aaaa): ")
         data_fim = input("Data de Fim (dd/mm/aaaa): ")
 
-        # Checa se cliente, carro e funcionário existem
+        
         df_cliente = oracle.sqlToDataFrame(f"SELECT cpf, nome FROM clientes WHERE cpf = '{cpf}'")
         df_carro = oracle.sqlToDataFrame(f"SELECT id_carro, modelo FROM carros WHERE id_carro = {id_carro}")
         df_func = oracle.sqlToDataFrame(f"SELECT id_funcionario, nome FROM funcionarios WHERE id_funcionario = {id_funcionario}")
@@ -37,7 +37,7 @@ class Controller_Locacao:
             input("\nPressione Enter para prosseguir")
             return None
 
-        # Checa se o carro já está reservado no período
+       
         df_reserva = oracle.sqlToDataFrame(
             f"SELECT numero_reserva FROM locacoes "
             f"WHERE id_carro = {id_carro} "

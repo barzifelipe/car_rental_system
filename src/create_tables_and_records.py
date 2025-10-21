@@ -38,30 +38,30 @@ def generate_records(query: str, sep: str = ';'):
 
 
 def run():
-    # Caminho base do script
+    
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     SQL_DIR = os.path.join(BASE_DIR, "../sql")
 
-    # Arquivos SQL
+    
     create_tables_file = os.path.join(SQL_DIR, "create_tables_locacoes.sql")
     generate_records_file = os.path.join(SQL_DIR, "inserting_samples_records.sql")
     generate_related_file = os.path.join(SQL_DIR, "inserting_samples_related_records.sql")
 
-    # Criar tabelas
+   
     with open(create_tables_file, "r") as f:
         query_create = f.read()
     print("Creating tables...")
     create_tables(query=query_create)
     print("Tables successfully created!\n")
 
-    # Inserir registros
+    
     with open(generate_records_file, "r") as f:
         query_generate_records = f.read()
     print("Generating records...")
     generate_records(query=query_generate_records)
     print("Records successfully generated!\n")
 
-    # Inserir registros relacionados
+   
     with open(generate_related_file, "r") as f:
         query_generate_related_records = f.read()
     print("Generating related records...")
