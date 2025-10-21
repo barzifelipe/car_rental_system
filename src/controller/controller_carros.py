@@ -14,6 +14,7 @@ class Controller_Carro:
         # Se já existir, não insere
         if self.verifica_existencia_carro(oracle, placa=placa):
             print(f"A placa {placa} já está cadastrada no sistema.")
+            input("\nPressione Enter para prosseguir")
             return None
 
         modelo = input("Informe o modelo do Carro: ")
@@ -42,7 +43,7 @@ class Controller_Carro:
 
         print("\nCarro inserido com sucesso!")
         print(novo_carro.to_string())
-        input("\nPressione Enter para prosseguir.")
+        input("\nPressione Enter para prosseguir")
         return novo_carro
 
     def atualizar_carro(self) -> Carro:
@@ -54,6 +55,7 @@ class Controller_Carro:
         # Se não existir, não atualiza
         if not self.verifica_existencia_carro(oracle, id_carro=id_carro):
             print(f"O Carro com ID {id_carro} não foi encontrado.")
+            input("\nPressione Enter para prosseguir")
             return None
 
         novo_modelo = input("Informe o novo modelo: ")
@@ -85,7 +87,7 @@ class Controller_Carro:
 
         print("\nCarro atualizado com sucesso!")
         print(carro_atualizado.to_string())
-        input("\nPressione Enter para prosseguir.")
+        input("\nPressione Enter para prosseguir")
         return carro_atualizado
 
     def excluir_carro(self):
@@ -97,6 +99,7 @@ class Controller_Carro:
         # Se não existir, não exclui
         if not self.verifica_existencia_carro(oracle, id_carro=id_carro):
             print(f"O Carro com ID {id_carro} não foi encontrado.")
+            input("\nPressione Enter para prosseguir")
             return None
 
         df_carro = oracle.sqlToDataFrame(f"""
@@ -118,7 +121,7 @@ class Controller_Carro:
 
         print("\nCarro removido com sucesso!")
         print(carro_excluido.to_string())
-        input("\nPressione Enter para prosseguir.")
+        input("\nPressione Enter para prosseguir")
 
     def verifica_existencia_carro(self, oracle: OracleQueries, placa: str = None, id_carro: int = None) -> bool:
         if placa:

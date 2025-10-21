@@ -26,12 +26,15 @@ class Controller_Locacao:
 
         if df_cliente.empty:
             print(f"Cliente com CPF {cpf} não encontrado.")
+            input("\nPressione Enter para prosseguir")
             return None
         if df_carro.empty:
             print(f"Veículo com ID {id_carro} não encontrado.")
+            input("\nPressione Enter para prosseguir")
             return None
         if df_func.empty:
             print(f"Funcionário com ID {id_funcionario} não encontrado.")
+            input("\nPressione Enter para prosseguir")
             return None
 
         # Checa se o carro já está reservado no período
@@ -43,6 +46,7 @@ class Controller_Locacao:
         )
         if not df_reserva.empty:
             print(f"O carro {id_carro} já está reservado neste período.")
+            input("\nPressione Enter para prosseguir")
             return None
 
         
@@ -76,7 +80,7 @@ class Controller_Locacao:
 
         print("\nLocação inserida com sucesso!")
         print(nova_locacao.to_string())
-        input("\nPressione Enter para prosseguir.")
+        input("\nPressione Enter para prosseguir")
         return nova_locacao
 
     def atualizar_locacao(self) -> Locacao:
@@ -88,6 +92,7 @@ class Controller_Locacao:
         df_loc = oracle.sqlToDataFrame(f"SELECT * FROM locacoes WHERE numero_reserva = {numero_reserva}")
         if df_loc.empty:
             print(f"A reserva {numero_reserva} não existe.")
+            input("\nPressione Enter para prosseguir")
             return None
 
         data_fim = input("Nova Data de Fim (dd/mm/aaaa): ")
@@ -117,7 +122,7 @@ class Controller_Locacao:
 
         print("\nLocação atualizada com sucesso!")
         print(loc_atualizada.to_string())
-        input("\nPressione Enter para prosseguir.")
+        input("\nPressione Enter para prosseguir")
         return loc_atualizada
 
     def excluir_locacao(self):
@@ -129,13 +134,14 @@ class Controller_Locacao:
         df_loc = oracle.sqlToDataFrame(f"SELECT * FROM locacoes WHERE numero_reserva = {numero_reserva}")
         if df_loc.empty:
             print(f"A reserva {numero_reserva} não existe.")
+            input("\nPressione Enter para prosseguir")
             return None
 
         oracle.write(f"DELETE FROM locacoes WHERE numero_reserva = {numero_reserva}")
 
         print("\nLocação removida com sucesso!")
         print(f"Reserva: {df_loc.numero_reserva.values[0]} | CPF: {df_loc.cpf.values[0]} | Veículo: {df_loc.id_carro.values[0]}")
-        input("\nPressione Enter para prosseguir.")
+        input("\nPressione Enter para prosseguir")
 
     def verifica_existencia_locacao(self, oracle: OracleQueries, numero_reserva: int = None, id_carro: int = None) -> bool:
         if numero_reserva:
