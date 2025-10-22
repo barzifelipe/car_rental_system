@@ -2,7 +2,7 @@ erDiagram
     CLIENTE {
         INT ID PK
         VARCHAR NOME
-        CHAR CPF
+        VARCHAR CPF
     }
 
     FUNCIONARIO {
@@ -16,14 +16,14 @@ erDiagram
         VARCHAR MODELO
         VARCHAR PLACA
         VARCHAR CATEGORIA
-        DECIMAL VALOR_DIARIA
+        NUMERIC VALOR_DIARIA
     }
 
     LOCACAO {
         INT NUMERO_RESERVA PK
         DATE DATA_INICIO
         DATE DATA_FIM
-        CHAR CPF FK
+        INT ID_CLIENTE FK
         INT ID_VEICULO FK
         INT ID_FUNCIONARIO FK
     }
