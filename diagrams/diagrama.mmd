@@ -1,17 +1,17 @@
 erDiagram
-    CLIENTE {
-        INT ID PK
-        VARCHAR NOME
+    CLIENTES {
+        INT ID_CLIENTE PK
+        VARCHAR NOME_CLIENTE
         VARCHAR CPF
     }
 
-    FUNCIONARIO {
+    FUNCIONARIOS {
         INT ID_FUNCIONARIO PK
         VARCHAR NOME
         VARCHAR CARGO
     }
 
-    CARRO {
+    CARROS {
         INT ID_CARRO PK
         VARCHAR MODELO
         VARCHAR PLACA
@@ -19,15 +19,16 @@ erDiagram
         NUMERIC VALOR_DIARIA
     }
 
-    LOCACAO {
+    LOCACOES {
         INT NUMERO_RESERVA PK
         DATE DATA_INICIO
         DATE DATA_FIM
         INT ID_CLIENTE FK
-        INT ID_VEICULO FK
+        INT ID_CARRO FK
         INT ID_FUNCIONARIO FK
     }
 
-    CLIENTE ||--o{ LOCACAO : "realiza"
-    FUNCIONARIO ||--o{ LOCACAO : "atua "
-    CARRO ||--o{ LOCACAO : " é usado"
+  
+    CLIENTES ||--o{ LOCACOES : "realizam" 
+    FUNCIONARIOS ||--o{ LOCACOES: "supervisionam" 
+    CARROS ||--o{ LOCACOES: "correspondem "
